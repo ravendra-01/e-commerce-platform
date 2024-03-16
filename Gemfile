@@ -70,3 +70,8 @@ group :test do
   gem "selenium-webdriver"
 
 end
+gem 'jwt'
+gem 'bcrypt'
+gem 'byebug'
+gem 'rack-cors'
+gem 'fast_jsonapi'
