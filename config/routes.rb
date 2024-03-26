@@ -6,4 +6,6 @@ Rails.application.routes.draw do
 
   resources :users
   post '/auth/login', to: 'authentication#login'
+  get '/categories', to: 'categories#index'
+  get '/options', to: 'options#index'
 end
