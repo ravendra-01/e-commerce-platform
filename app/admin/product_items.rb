@@ -1,5 +1,5 @@
 ActiveAdmin.register ProductItem do
-  permit_params :sku, :qty_in_stock, :price, :product_id, :variation_option_id, :created_at, :updated_at, product_attributes_attributes: [:id, :attr_value, :attribute_name_id, :product_item_id, :_destroy]
+  permit_params :sku, :qty_in_stock, :price, :product_id, :variation_option_id, :created_at, :updated_at, product_attributes_attributes: [:id, :attr_value, :attribute_name_id, :product_item_id, :_destroy], product_suppliers_attributes: [:id, :product_item_id, :supplier_id, :_destroy]
   menu parent: "Product Management", label: 'Product Variation Details'
 
   index do
@@ -54,6 +54,20 @@ ActiveAdmin.register ProductItem do
         end
       end
     end
+
+    if resource.product_suppliers.present?
+      panel "Supplier Info" do
+        table_for resource.product_suppliers do
+          column :id
+          column :name do |resource|
+            supplier = resource.supplier
+            "#{supplier.name}" if supplier
+            end
+          column :created_at
+          column :updated_at
+        end
+      end
+    end
   end
 
   form do |f|
@@ -64,10 +78,16 @@ ActiveAdmin.register ProductItem do
       f.input :product_id, as: :select, include_blank: false, prompt: "Select product", collection: Product.all.map {|f| [f.name, f.id]}
       f.input :variation_option_id, as: :select, include_blank: false, prompt: "Select variation option", collection: VariationOption.all.map {|f| [f.value, f.id]}
 
-      f.inputs 'Add attributes' do
+      f.inputs 'Add Attributes' do
         f.has_many :product_attributes, allow_destroy: true do |a|
           a.input :attr_value
           a.input :attribute_name_id, as: :select, include_blank: false, prompt: "Select attribute", collection: AttributeName.all.map {|f| [f.attr_name, f.id]}
+        end
+      end
+
+      f.inputs 'Add Supplier Info' do
+        f.has_many :product_suppliers, allow_destroy: true do |a|
+          a.input :supplier_id, as: :select, include_blank: false, prompt: "Select Supplier", collection: Supplier.all.map {|f| [f.name, f.id]}
         end
       end
     end

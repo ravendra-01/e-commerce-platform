@@ -9,4 +9,6 @@ class ProductItem < ApplicationRecord
 
   has_many :product_attributes, dependent: :destroy
   accepts_nested_attributes_for :product_attributes, allow_destroy: true
+  has_many :product_suppliers, dependent: :destroy
+  accepts_nested_attributes_for :product_suppliers, allow_destroy: true
 end

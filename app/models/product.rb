@@ -1,5 +1,6 @@
 class Product < ApplicationRecord
   belongs_to :category
+  belongs_to :manufacturer
   has_many :product_items
   validates :name, :description, presence: true
 
