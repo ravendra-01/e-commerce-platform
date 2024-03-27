@@ -5,4 +5,9 @@ class Category < ApplicationRecord
 
   belongs_to :parent_category, class_name: "Category", optional: true
   validates :category_name, presence: true, uniqueness: true
+
+  def self.ransackable_attributes(auth_object = nil)
+    ["category_name", "created_at", "id", "parent_category_id", "updated_at"]
+  end
+
 end
