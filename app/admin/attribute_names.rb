@@ -1,4 +1,4 @@
-ActiveAdmin.register AttributeName do
+ActiveAdmin.register CategoryAttribute do
   permit_params :attr_name, :category_id, :created_at, :updated_at
   menu parent: "Product Management", label: 'Manage Product Attributes'
 

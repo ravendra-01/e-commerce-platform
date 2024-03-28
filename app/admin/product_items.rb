@@ -45,7 +45,7 @@ ActiveAdmin.register ProductItem do
         table_for resource.product_attributes do
           column :id
           column :attribute_name do |resource|
-            attribute_name = resource.attribute_name
+            attribute_name = resource.category_attribute
             "#{attribute_name.attr_name}"
             end
           column :attr_value
@@ -81,7 +81,7 @@ ActiveAdmin.register ProductItem do
       f.inputs 'Add Attributes' do
         f.has_many :product_attributes, allow_destroy: true do |a|
           a.input :attr_value
-          a.input :attribute_name_id, as: :select, include_blank: false, prompt: "Select attribute", collection: AttributeName.all.map {|f| [f.attr_name, f.id]}
+          a.input :attribute_name_id, as: :select, include_blank: false, prompt: "Select attribute", collection: CategoryAttribute.all.map {|f| [f.attr_name, f.id]}
         end
       end
 

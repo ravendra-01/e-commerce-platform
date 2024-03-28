@@ -1,4 +1,6 @@
-class AttributeName < ApplicationRecord
+class CategoryAttribute < ApplicationRecord
+  self.table_name = :attribute_names
+
   belongs_to :category
   has_many :product_attributes
   validates :attr_name, presence: true
